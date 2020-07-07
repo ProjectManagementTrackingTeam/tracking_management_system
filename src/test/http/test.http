@@ -1,0 +1,6 @@
+#GET http://localhost:8080/test/get
+#Accept: application/json
+
+GET http://localhost:8000/test/get
+Accept: application/json
+###
