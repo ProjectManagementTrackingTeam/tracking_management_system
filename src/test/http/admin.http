@@ -1,0 +1,35 @@
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "number": 1001,
+  "password": 1001
+}
+> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+###
+#添加一个不存在的
+POST http://localhost:8000/api/admin/addManager
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+"user": {
+ "number": 1003,
+  "name": "张三"
+}
+
+}
+###
+#添加一个已经存在的
+POST http://localhost:8000/api/admin/addManager
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "user": {
+    "number": 1003,
+    "name": "李四"
+  }
+
+}
+
