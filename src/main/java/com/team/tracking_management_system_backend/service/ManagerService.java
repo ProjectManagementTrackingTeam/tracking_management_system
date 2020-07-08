@@ -1,7 +1,9 @@
 package com.team.tracking_management_system_backend.service;
 
 import com.team.tracking_management_system_backend.entity.Manager;
+import com.team.tracking_management_system_backend.entity.Project;
 import com.team.tracking_management_system_backend.repository.ManagerRepository;
+import com.team.tracking_management_system_backend.repository.ProjectRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

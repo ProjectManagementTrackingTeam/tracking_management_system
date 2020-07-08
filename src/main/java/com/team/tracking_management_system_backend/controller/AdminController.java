@@ -27,15 +27,7 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private ManagerRepository managerRepository;
-    @PostMapping("updatePassword")
-    public Map updatePassword(@RequestBody Admin admin){
-        //没有输入相关信息
-        if(admin.getUser() == null){
-            return Map.of("message",new MessageVO("修改失败"),MessageVO.STATE,MessageVO.State.FAIL);
-        }
-        updatePassword(admin);
-        return Map.of("message",new MessageVO("修改成功"),MessageVO.STATE,MessageVO.State.FAIL);
-    }
+
     @PostMapping("addManager")
     public Map addManager(@RequestBody Manager m){
         User user = userService.getUserByNumber(m.getUser().getNumber());

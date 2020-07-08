@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"employees"})
+@JsonIgnoreProperties({"projects"})
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package com.team.tracking_management_system_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"taskEmployees"})
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
