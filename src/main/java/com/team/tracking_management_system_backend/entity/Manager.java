@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties({"projects"})
+@JsonIgnoreProperties(value = {"projects"},allowSetters = true)
 public class Manager {
 
     public Manager(int managerId) {

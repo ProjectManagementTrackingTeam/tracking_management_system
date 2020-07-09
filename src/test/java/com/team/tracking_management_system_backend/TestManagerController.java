@@ -54,6 +54,15 @@ public class TestManagerController {
         projectService.addProject(project);
     }
 
+    //添加员工
+    @Test
+    public void addEmployee(){
+        Employee employee = new Employee();
+        Employee employee2 = new Employee();
+        employee.setUser(new User(User.Role.EMPLOYEE,"jjjj",200021));
+        employee2.setUser(new User(User.Role.EMPLOYEE,"234",200022));
+        employeeService.addEmployee(List.of(employee,employee2));
+    }
     //转让项目
     @Test
     public void transferProject() {
@@ -76,6 +85,11 @@ public class TestManagerController {
         project.setEmergencyDegree(2);
         projectService.updateProject(project);
     }
+    //查看项目
+    @Test
+    public void showProject(){
+        System.out.println(projectService.findProjectById(18));
+    }
 
     //为项目添加任务
     @Test
@@ -89,6 +103,17 @@ public class TestManagerController {
         task.setStartTime(LocalDateTime.now());
         project.setTasks(List.of(task1, task));
         projectService.addTasks(project);
+    }
+    //修改任务信息
+    @Test
+    public void updateTask(){
+        Task task = new Task();
+        task.setId(2);
+        task.setIsFinished(0);
+        task.setWeight(7);
+        task.setName("aaaa");
+        taskService.updateTask(task);
+        System.out.println(taskService.getTaskById(task.getId()).getName());
     }
 
     //删除任务

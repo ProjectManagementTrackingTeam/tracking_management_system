@@ -20,5 +20,4 @@ public class TrackingManagementSystemBackEndApplication {
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 }

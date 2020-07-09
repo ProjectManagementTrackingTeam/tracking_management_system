@@ -67,6 +67,7 @@ public class ManagerController {
     //项目转让
     @PostMapping("transferProject")
     public Map transferProject(@RequestBody Manager manager) {
+        System.out.println("projects----------" + manager.getProjects()+"manager" +manager);
         List<Project> oldProjects = projectService.getProjects(requestComponent.getUid());
         if (oldProjects == null || oldProjects.size() == 0) {
             return Map.of("message", new MessageVO("没有可转让的项目"));
@@ -84,6 +85,7 @@ public class ManagerController {
             return Map.of("projects", projectService.getProjects(requestComponent.getUid()));
         }
     }
+    //修改项目信息
     @PostMapping("updateProject")
     public Map updateProject(@RequestBody Project project){
         if (!projectService.updateProject(project)){
@@ -97,7 +99,7 @@ public class ManagerController {
     @PostMapping("addTasks")
     public Map addTasks(@RequestBody Project project) {
         Project oldProject = projectService.findProjectById(project.getId());
-        if (oldProject != null) {
+        if (oldProject == null) {
             return Map.of("message", new MessageVO("添加失败，项目不存在"));
         } else {
             projectService.addTasks(project);
@@ -114,6 +116,9 @@ public class ManagerController {
     //修改任务信息
     @PostMapping("updateTasks")
     public Map updateTasks(@RequestBody Task task){
+        System.out.println(task.getId());
+        System.out.println(task.getName());
+        System.out.println(task.getStartTime());
         taskService.updateTask(task);
         return Map.of("task",taskService.getTaskById(task.getId()));
     }
@@ -165,17 +170,17 @@ public class ManagerController {
             return Map.of("message",new MessageVO("未传数据"));
         }
         taskEmployeeService.addWorker(taskEmployees);
-        return Map.of("TaskEmployee",taskEmployeeService.getEmployeeList(taskEmployees.get(0).getTask().getId()));
+        return Map.of("taskEmployee",taskEmployeeService.getEmployeeList(taskEmployees.get(0).getTask().getId()));
     }
     //为任务删除员工
-    @PostMapping
+    @PostMapping("deleteWorker")
     public Map deleteWorker(@RequestBody List<TaskEmployee> taskEmployees){
         if (taskEmployees == null || taskEmployees.size() == 0) {
             return Map.of("message", new MessageVO("任务不存在"));
         }else {
             List<Integer> taskEmpIds = taskEmployees.stream().map(TaskEmployee::getId).collect(Collectors.toList());
             taskEmployeeService.deleteWorker(taskEmpIds);
-            return Map.of("TaskEmployee",taskEmployeeService.getEmployeeList(taskEmployees.get(0).getTask().getId()));
+            return Map.of("taskEmployee",taskEmployeeService.getEmployeeList(taskEmployees.get(0).getTask().getId()));
         }
     }
 }

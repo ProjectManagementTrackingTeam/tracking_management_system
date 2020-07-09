@@ -1,7 +1,10 @@
 package com.team.tracking_management_system_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.team.tracking_management_system_backend.util.CustomLocalDateTimeDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,24 +18,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIgnoreProperties({"taskEmployees"})
+@JsonIgnoreProperties({"taskEmployees","hibernateLazyInitializer","handler"})
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
     //权重
     private int weight;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDateTime startTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDateTime endTime;
     //判断一个子任务是否完成
     private int isFinished;
-    @OneToMany(mappedBy = "task",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<TaskEmployee> taskEmployees;
     @ManyToOne
+    @JsonIgnore
     private Project project;
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,

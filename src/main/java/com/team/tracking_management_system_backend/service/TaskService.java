@@ -34,6 +34,8 @@ public class TaskService {
         Task oldTask = taskRepository.getOne(task.getId());
         oldTask.setStartTime(task.getStartTime());
         oldTask.setEndTime(task.getEndTime());
+        oldTask.setWeight(task.getWeight());
+        oldTask.setName(task.getName());
         oldTask.setIsFinished(task.getIsFinished());
     }
     public void addTask(Task task) {
@@ -41,7 +43,9 @@ public class TaskService {
     }
 
     public Task getTaskById(int id) {
-        return taskRepository.getOne(id);
+        Task one = taskRepository.getOne(id);
+        System.out.println("one-----"+one.getName());
+        return one;
     }
 
 }

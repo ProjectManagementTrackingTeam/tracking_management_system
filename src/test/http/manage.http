@@ -7,25 +7,216 @@ Content-Type: application/json
 }
 > {% client.global.set("token1", response.headers.valueOf("Authorization")); %}
 
+
+###
+# 1.添加项目（不可添加相同名称的项目）
+POST http://localhost:8000/api/manager/addProject
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "name": "project10",
+  "startTime": "2020-05-07 00:00:00",
+  "endTime": "2020-05-08 00:00:00",
+  "emergencyDegree": 1
+}
 ###
 POST http://localhost:8000/api/manager/addProject
 Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "manager": {
-    "id": 2
-  },
   "name": "project1",
-  "emergencyDegree": 1,
-  "startTime": "2020-01-01 10:20:20",
-  "endTime": "2020-05-04 10:20:20"
+  "startTime": "2020-05-07 00:00:00",
+  "endTime": "2020-05-08 00:00:00",
+  "emergencyDegree": 1
 }
 ###
-POST http://localhost:8000/api/manager/listProjects
+# 2.查看项目
+GET http://localhost:8000/api/manager/listProjects
+Content-Type: application/json
+Authorization: {{token1}}
+
+###
+# 3.删除项目
+POST http://localhost:8000/api/manager/deleteProject
+Content-Type: application/json
+Authorization: {{token1}}
+
+[
+  {
+    "id":12
+  },
+  {
+    "id": 9
+  }
+]
+
+###
+# 4.项目转让 (传入的是要转让的经理的id，已经要转让的项目)
+POST http://localhost:8000/api/manager/transferProject
 Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "id": 2
+  "id": 6,
+  "projects": [
+    {
+      "id": 17
+    },
+    {
+      "id": 18
+    }
+  ]
 }
+
+###
+# 5.修改项目信息
+POST http://localhost:8000/api/manager/updateProject
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "id": 18,
+  "startTime": "2020-05-06 00:00:00",
+  "endTime": "2020-07-08 00:00:00",
+  "emergencyDegree": 2
+}
+###
+# 6.为项目添加任务(传入的是一个Project对象)
+POST http://localhost:8000/api/manager/addTasks
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "id":19,
+  "tasks": [
+    {
+      "name": "task1",
+      "weight": 2,
+      "startTime": "2020-05-06 00:00:00",
+      "endTime": "2020-07-08 00:00:00",
+      "isFinished": 0
+    },
+    {
+      "name": "task2",
+      "weight": 3,
+      "startTime": "2020-05-08 00:00:00",
+      "endTime": "2020-07-08 00:00:00",
+      "isFinished": 1
+    }
+  ]
+}
+###
+# 7.修改任务信息
+POST http://localhost:8000/api/manager/updateTasks
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "id": 2,
+  "name": "taskn",
+  "weight": 3,
+  "startTime": "2020-05-08 00:00:00",
+  "endTime": "2020-07-08 00:00:00",
+  "isFinished": 1
+}
+
+###
+# 8.删除某个项目的任务
+POST http://localhost:8000/api/manager/deleteTasks
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "id": 14,
+  "tasks": [
+    {
+      "id":5
+    }
+  ]
+}
+
+###
+# 9. 查看所有管理的员工
+GET http://localhost:8000/api/manager/getEmployee
+Authorization: {{token1}}
+
+###
+#10. 查看该项目所有可以被分配的员工
+#一个员工只能在一个项目里，所以已经有别的项目的员工不会被查询到
+GET http://localhost:8000/api/manager/getAvailable
+Authorization: {{token1}}
+
+###
+#11.添加员工，此时还未分配任务
+POST http://localhost:8000/api/manager/addEmployee
+Content-Type: application/json
+Authorization: {{token1}}
+
+[
+  {
+    "user": {
+      "name": "empt1",
+      "number": 200001
+    }
+  },
+  {
+    "user": {
+      "name": "empt2",
+      "number": 200221
+    }
+  }
+]
+
+###
+#12.为任务添加员工(传入的是TaskEmployee对象的数组)
+POST http://localhost:8000/api/manager/addWorker
+Content-Type: application/json
+Authorization: {{token1}}
+
+[
+  {
+    "task": {
+      "id": 8
+    },
+    "employee": {
+      "id": 8
+    }
+  },
+  {
+    "task": {
+      "id": 8
+    },
+    "employee": {
+      "id": 11
+    }
+  }
+]
+
+###
+#13.为任务删除员工(传入的是TaskEmployee对象的数组)
+POST http://localhost:8000/api/manager/deleteWorker
+Content-Type: application/json
+Authorization: {{token1}}
+
+[
+  {
+    "id": 46,
+    "task": {
+      "id": 8
+    },
+    "employee": {
+      "id": 8
+    }
+  },
+  {
+    "id": 47,
+    "task": {
+      "id": 8
+    },
+    "employee": {
+      "id": 11
+    }
+  }
+]
