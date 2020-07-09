@@ -1,0 +1,31 @@
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "number": 1003,
+  "password": 1003
+}
+> {% client.global.set("token1", response.headers.valueOf("Authorization")); %}
+
+###
+POST http://localhost:8000/api/manager/addProject
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "manager": {
+    "id": 2
+  },
+  "name": "project1",
+  "emergencyDegree": 1,
+  "startTime": "2020-01-01 10:20:20",
+  "endTime": "2020-05-04 10:20:20"
+}
+###
+POST http://localhost:8000/api/manager/listProjects
+Content-Type: application/json
+Authorization: {{token1}}
+
+{
+  "id": 2
+}

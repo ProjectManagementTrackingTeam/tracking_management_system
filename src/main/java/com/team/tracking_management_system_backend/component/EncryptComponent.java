@@ -53,6 +53,7 @@ public class EncryptComponent {
     public MyToken decryptToken(String auth){
         try{
             String json = encryptor.decrypt(auth);
+            System.out.println("token----");
             return objectMapper.readValue(json,MyToken.class);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "无权限");

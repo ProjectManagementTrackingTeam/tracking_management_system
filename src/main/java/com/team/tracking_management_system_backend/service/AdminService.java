@@ -36,10 +36,6 @@ public class AdminService  {
         adminRepository.save(admin);
     }
     public void addManager(Manager manager){
-//        if(managerRepository.findByNumber(manager.getUser().getNumber())==null){
-//            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
-//        }
-
         User u = manager.getUser();
         u.setPassword(encoder.encode(String.valueOf(u.getNumber())));
         u.setRole(User.Role.MANAGER);

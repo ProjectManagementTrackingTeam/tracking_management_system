@@ -9,6 +9,14 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class User {
+    public User() {
+    }
+    public User(User.Role role,String name, int number){
+        this.role =role;
+        this.name = name;
+        this.number = number;
+    }
+
     public enum Role{
         ADMIN,MANAGER,EMPLOYEE
     }

@@ -12,7 +12,10 @@ public interface TaskRepository extends BaseRepository<Task,Integer>{
     @Query("from Task t where t.project.id =:projectId")
     public List<Task> getTasks(int projectId);
     @Modifying
-    @Query("delete from Task t where t.id in :taskIdList")
+    @Query("delete from Task t where t.id in (?1)")
     public void deleteTasks(List<Integer> tasksIdList);
+    @Modifying
+    @Query("delete from Task t where t.project.id = :projectId")
+    void deleteTasksFromProject(int projectId);
 
 }

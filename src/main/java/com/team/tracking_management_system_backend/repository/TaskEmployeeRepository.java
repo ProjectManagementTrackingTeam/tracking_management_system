@@ -12,6 +12,9 @@ public interface TaskEmployeeRepository extends BaseRepository<TaskEmployee,Inte
     @Query("from TaskEmployee te where te.task.id =:taskId")
     public List<TaskEmployee> getEmployeeList(int taskId);
     @Modifying
-    @Query("delete from TaskEmployee te where te.id in :taskEmpIds")
+    @Query("delete from TaskEmployee te where te.id in (:taskEmpIds)")
     public void deleteWorker(List<Integer> taskEmpIds);
+    @Modifying
+    @Query("delete from TaskEmployee te where te.task.id = :taskId")
+    void deleteTEs(int taskId);
 }

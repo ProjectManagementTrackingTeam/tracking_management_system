@@ -30,7 +30,7 @@ public class AdminController {
 
     @PostMapping("addManager")
     public Map addManager(@RequestBody Manager m){
-        User user = userService.getUserByNumber(m.getUser().getNumber());
+        User user = userService.getUserByNumber(requestComponent.getUid());
         if(user != null){
             return Map.of("message",new MessageVO("该用户已存在"),"managers",adminService.getManagers());
         }

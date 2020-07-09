@@ -18,7 +18,7 @@ public class TaskEmployee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Task task;
     @ManyToOne
     private Employee employee;

@@ -5,8 +5,8 @@ POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-  "number": 1001,
-  "password": 1001
+  "number": 1003,
+  "password": 1003
 }
 ###
 #错误

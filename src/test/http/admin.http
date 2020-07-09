@@ -32,4 +32,8 @@ Authorization: {{token}}
   }
 
 }
+###
+GET http://localhost:8000/api/admin/getManagers
+Content-Type: application/json
+Authorization: {{token}}
 

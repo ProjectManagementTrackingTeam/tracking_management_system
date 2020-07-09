@@ -49,17 +49,10 @@ public class LoginController {
                 .filter(u->encoder.matches(loginUser.getPassword(), u.getPassword()))
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.UNAUTHORIZED,"用户名或密码错误"));
         MyToken token  = new MyToken(user.getId(), user.getRole());
+        //这里把角色和UID都塞了进去
         String auth = encrypt.encryptToken(token);
         response.setHeader(MyToken.AUTHORIZATION, auth);//以键值对形式放入头中
         log.debug("{}", "登陆成功");
-//        String roleCode = null;
-//        if(user.getRole()== User.Role.ADMIN)
-//            roleCode = roleAdmin;
-//        if(user.getRole()== User.Role.MANAGER)
-//            roleCode = roleManager;
-//        if(user.getRole()== User.Role.EMPLOYEE)
-//            roleCode = roleEmplyee;
-
         String roleCode = user.getRole()== User.Role.ADMIN? roleAdmin:roleManager;
 
         return Map.of("role",roleCode);//告诉前端你是什么身份，前端渲染不同界面

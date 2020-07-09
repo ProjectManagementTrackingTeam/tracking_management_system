@@ -20,16 +20,19 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
     @Autowired
     private PasswordEncoder encoder;
+
     //查询项目经理下的所有员工
-    public List<Employee> getEmployeeList(List<Integer> projectIds){
+    public List<Employee> getEmployeeList(List<Integer> projectIds) {
         return employeeRepository.getEmployee(projectIds);
     }
+
     //获取项目经理可用的员工
-    public List<Employee> getAvailable(List<Integer> projectsIds){
+    public List<Employee> getAvailable(List<Integer> projectsIds) {
         return employeeRepository.getAvailable(projectsIds);
     }
+
     //添加员工，此时员工没有任务，也没有项目，只是为了让他存在
-    public void addEmployee(List<Employee> employeeList){
+    public void addEmployee(List<Employee> employeeList) {
         List<Employee> collect = employeeList.stream().map(
                 (e) -> {
                     User user = e.getUser();
@@ -39,6 +42,11 @@ public class EmployeeService {
                 }
         ).collect(Collectors.toList());
         employeeRepository.saveAll(collect);
+    }
+
+    public Employee getEmployeeById(int id) {
+        return employeeRepository.getOne(id);
+
     }
 
 

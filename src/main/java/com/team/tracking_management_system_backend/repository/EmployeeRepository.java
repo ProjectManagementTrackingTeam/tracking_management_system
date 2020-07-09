@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends BaseRepository<Employee,Integer>{
-    @Query("from Employee e where e.project.id in :projectIds")
+    @Query("from Employee e where e.project.id in (:projectIds)")
     List<Employee>  getEmployee(List<Integer> projectIds);
-    @Query("from Employee e where e.project.id = 0 or e.project.id in :projectsIds")
+    @Query("from Employee e where e.project.id is null or e.project.id in (:projectsIds)")
     List<Employee> getAvailable(List<Integer> projectsIds);
 
 }

@@ -1,6 +1,5 @@
 package com.team.tracking_management_system_backend.controller;
 
-import com.team.tracking_management_system_backend.entity.Admin;
 import com.team.tracking_management_system_backend.entity.User;
 import com.team.tracking_management_system_backend.service.UserService;
 import com.team.tracking_management_system_backend.vo.MessageVO;

@@ -24,11 +24,18 @@ public class TaskService {
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
-
+    public void deleteTasksFromProject(int projectId){
+        taskRepository.deleteTasksFromProject(projectId);
+    }
     public void deleteTasks(List<Integer> taskIdList) {
         taskRepository.deleteTasks(taskIdList);
     }
-
+    public void updateTask(Task task){
+        Task oldTask = taskRepository.getOne(task.getId());
+        oldTask.setStartTime(task.getStartTime());
+        oldTask.setEndTime(task.getEndTime());
+        oldTask.setIsFinished(task.getIsFinished());
+    }
     public void addTask(Task task) {
         taskRepository.save(task);
     }
@@ -37,7 +44,4 @@ public class TaskService {
         return taskRepository.getOne(id);
     }
 
-    public void addWorker(Task task) {
-        taskRepository.save(task);
-    }
 }

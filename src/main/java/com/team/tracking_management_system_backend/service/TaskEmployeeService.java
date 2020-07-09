@@ -16,11 +16,18 @@ import java.util.List;
 public class TaskEmployeeService {
     @Autowired
     TaskEmployeeRepository taskEmployeeRepository;
-    public List<TaskEmployee> getEmployeeList(int taskId){
 
+    public List<TaskEmployee> getEmployeeList(int taskId) {
         return taskEmployeeRepository.getEmployeeList(taskId);
     }
-    public void deleteWorker(List<Integer> taskEmpIds){
+
+    public void deleteWorker(List<Integer> taskEmpIds) {
         taskEmployeeRepository.deleteWorker(taskEmpIds);
+    }
+
+    public void addWorker(List<TaskEmployee> taskEmployees) {
+        taskEmployeeRepository.deleteTEs(taskEmployees.get(0).getTask().getId());
+        taskEmployeeRepository.saveAll(taskEmployees);
+
     }
 }
