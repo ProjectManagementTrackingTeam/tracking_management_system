@@ -59,10 +59,12 @@ public class Project {
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
+    @JsonIgnore
     private LocalDateTime insertTime;
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
+    @JsonIgnore
     private LocalDateTime updateTime;
 
 

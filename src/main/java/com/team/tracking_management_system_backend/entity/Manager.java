@@ -1,6 +1,7 @@
 package com.team.tracking_management_system_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,14 +31,16 @@ public class Manager {
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonIgnore
     private LocalDateTime insertTime;
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
+    @JsonIgnore
     private LocalDateTime updateTime;
 
     //与项目是一对多关系
+
     @OneToMany(mappedBy = "manager")
     private List<Project> projects;
 

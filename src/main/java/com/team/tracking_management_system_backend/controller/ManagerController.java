@@ -28,6 +28,8 @@ public class ManagerController {
     private RequestComponent requestComponent;
     @Autowired
     private ManagerService managerService;
+    @Autowired
+    private UserService userService;
 
     //添加项目同时要为项目添加task
     @PostMapping("addProject")
@@ -68,6 +70,13 @@ public class ManagerController {
     @PostMapping("transferProject")
     public Map transferProject(@RequestBody Manager manager) {
         System.out.println("projects----------" + manager.getProjects()+"manager" +manager);
+        User user = manager.getUser();
+        Integer number = user.getNumber();
+        String name = user.getName();
+        User getUser = userService.getUserByNumberAndName(number, name);
+        if (getUser == null){
+            return Map.of("message",new MessageVO("用户名或账号错误"));
+        }
         List<Project> oldProjects = projectService.getProjects(requestComponent.getUid());
         if (oldProjects == null || oldProjects.size() == 0) {
             return Map.of("message", new MessageVO("没有可转让的项目"));
@@ -76,11 +85,12 @@ public class ManagerController {
             if(one == null){
                 return Map.of("message", new MessageVO("该管理员不存在"));
             }
+
             projectService.transferProject(manager.getProjects()
                             .stream()
                             .map(Project::getId)
                             .collect(Collectors.toList())
-                    , manager.getId()
+                    , getUser.getId()
             );
             return Map.of("projects", projectService.getProjects(requestComponent.getUid()));
         }
@@ -93,6 +103,10 @@ public class ManagerController {
         }else{
             return Map.of("project",projectService.findProjectById(project.getId()));
         }
+    }
+    @GetMapping("getTasks/{projectId}")
+    public Map getTasks(@PathVariable int projectId){
+        return Map.of("tasks",taskService.getTasks(projectId));
     }
 
     //添加任务

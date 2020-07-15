@@ -20,6 +20,9 @@ public class UserService {
     public User getUserByNumber(int number){
         return  userRepository.findByNumber(number);
     }
+    public User getUserByNumberAndName(int number,String name){
+        return userRepository.findByNumberAndName(number,name);
+    }
     public void updatePassword(User user){
         User oldUser = userRepository.getOne(user.getId());
         //要将加密之后的放入

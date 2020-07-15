@@ -1,5 +1,6 @@
 package com.team.tracking_management_system_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +24,12 @@ public class Admin {
             insertable = false,
             updatable = false)
     //插入时间
+    @JsonIgnore
     private LocalDateTime insertTime;
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
+    @JsonIgnore
     //更新时间
     private LocalDateTime updateTime;
 

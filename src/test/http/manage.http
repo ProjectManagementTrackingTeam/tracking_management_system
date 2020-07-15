@@ -20,6 +20,7 @@ Authorization: {{token1}}
   "endTime": "2020-05-08 00:00:00",
   "emergencyDegree": 1
 }
+
 ###
 POST http://localhost:8000/api/manager/addProject
 Content-Type: application/json
@@ -31,6 +32,7 @@ Authorization: {{token1}}
   "endTime": "2020-05-08 00:00:00",
   "emergencyDegree": 1
 }
+
 ###
 # 2.查看项目
 GET http://localhost:8000/api/manager/listProjects
@@ -45,7 +47,7 @@ Authorization: {{token1}}
 
 [
   {
-    "id":12
+    "id": 12
   },
   {
     "id": 9
@@ -59,13 +61,13 @@ Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "id": 6,
+  "user": {
+    "number": 1005,
+    "name": "man1"
+  },
   "projects": [
     {
-      "id": 17
-    },
-    {
-      "id": 18
+      "id": 20
     }
   ]
 }
@@ -82,6 +84,7 @@ Authorization: {{token1}}
   "endTime": "2020-07-08 00:00:00",
   "emergencyDegree": 2
 }
+
 ###
 # 6.为项目添加任务(传入的是一个Project对象)
 POST http://localhost:8000/api/manager/addTasks
@@ -89,24 +92,25 @@ Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "id":19,
+  "id": 19,
   "tasks": [
     {
       "name": "task1",
       "weight": 2,
-      "startTime": "2020-05-06 00:00:00",
-      "endTime": "2020-07-08 00:00:00",
+      "startTime": "2020-05-06",
+      "endTime": "2020-07-08",
       "isFinished": 0
     },
     {
       "name": "task2",
       "weight": 3,
-      "startTime": "2020-05-08 00:00:00",
-      "endTime": "2020-07-08 00:00:00",
+      "startTime": "2020-05-08",
+      "endTime": "2020-07-08",
       "isFinished": 1
     }
   ]
 }
+
 ###
 # 7.修改任务信息
 POST http://localhost:8000/api/manager/updateTasks
@@ -132,7 +136,7 @@ Authorization: {{token1}}
   "id": 14,
   "tasks": [
     {
-      "id":5
+      "id": 5
     }
   ]
 }
@@ -220,3 +224,7 @@ Authorization: {{token1}}
     }
   }
 ]
+###
+#查看一个项目下的所有任务
+GET http://localhost:8000/api/manager/getTasks/14
+Authorization: {{token1}}

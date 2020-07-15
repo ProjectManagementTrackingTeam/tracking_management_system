@@ -39,10 +39,12 @@ public class Task {
     @ManyToOne
     @JsonIgnore
     private Project project;
+    @JsonIgnore
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
     private LocalDateTime insertTime;
+    @JsonIgnore
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
