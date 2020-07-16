@@ -1,0 +1,13 @@
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "number": 20001,
+  "password": 1003
+}
+> {% client.global.set("token", response.headers.valueOf("Authorization")); %}
+
+###
+
+GET http://localhost:8000/api/employee/getTasks
+Authorization: {{token}}

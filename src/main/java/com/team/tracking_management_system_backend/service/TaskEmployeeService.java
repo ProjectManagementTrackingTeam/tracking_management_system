@@ -25,6 +25,9 @@ public class TaskEmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    public List<TaskEmployee> getTasksFromEmp(int empId){
+        return taskEmployeeRepository.getTasksFromEmp(empId);
+    }
 
     public List<TaskEmployee> getEmployeeList(int taskId) {
         List<TaskEmployee> employeeList = taskEmployeeRepository.getEmployeeList(taskId);

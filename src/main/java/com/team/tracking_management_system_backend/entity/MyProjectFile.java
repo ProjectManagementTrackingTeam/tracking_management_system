@@ -1,6 +1,8 @@
 package com.team.tracking_management_system_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.team.tracking_management_system_backend.util.CustomLocalDateTimeDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,26 +14,27 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ProjectFile {
+public class MyProjectFile {
+        @Transient
+    public static final String FILEPATH = "C:\\testFile\\";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    //一个项目可以有多个文件，所以文件是和项目挂钩的
+    private String fileKey;
     @ManyToOne
     private Project project;
-
-    //文件内容应该要用二进制流
-    private String content;
-
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)
-    @JsonIgnore
-    private LocalDateTime insertTime;
-    @Column(columnDefinition = "timestamp default current_timestamp",
+    private LocalDateTime uploadTime;
+    @Column(columnDefinition = "timestamp default current_timestamp " +
+            "on update current_timestamp",
             insertable = false,
             updatable = false)
     @JsonIgnore
     private LocalDateTime updateTime;
 }
+
+

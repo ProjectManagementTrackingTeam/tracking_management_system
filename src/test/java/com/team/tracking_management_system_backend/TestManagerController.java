@@ -92,18 +92,18 @@ public class TestManagerController {
     }
 
     //为项目添加任务
-    @Test
-    public void addTasks() {
-        Project project = new Project(14);
-        Task task = new Task();
-        task.setProject(project);
-        Task task1 = new Task();
-        task1.setProject(project);
-        task.setWeight(2);
-        task.setStartTime(LocalDateTime.now());
-        project.setTasks(List.of(task1, task));
-        projectService.addTasks(project);
-    }
+//    @Test
+//    public void addTasks() {
+//        Project project = new Project(14);
+//        Task task = new Task();
+//        task.setProject(project);
+//        Task task1 = new Task();
+//        task1.setProject(project);
+//        task.setWeight(2);
+//        task.setStartTime(LocalDateTime.now());
+//        project.setTasks(List.of(task1, task));
+//        projectService.addTask(project);
+//    }
     //修改任务信息
     @Test
     public void updateTask(){

@@ -26,7 +26,8 @@ public class Admin {
     //插入时间
     @JsonIgnore
     private LocalDateTime insertTime;
-    @Column(columnDefinition = "timestamp default current_timestamp",
+    @Column(columnDefinition = "timestamp default current_timestamp " +
+            "on update current_timestamp",
             insertable = false,
             updatable = false)
     @JsonIgnore

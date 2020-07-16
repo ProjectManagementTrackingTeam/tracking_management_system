@@ -106,17 +106,27 @@ public class ManagerController {
     }
     @GetMapping("getTasks/{projectId}")
     public Map getTasks(@PathVariable int projectId){
-        return Map.of("tasks",taskService.getTasks(projectId));
+        List<Task> tasks = taskService.getTasks(projectId);
+        if (tasks == null){
+            return Map.of("tasksAndEmployee",List.of());
+        }
+        List<List<TaskEmployee>> collect = tasks.stream().map(t -> taskEmployeeService.getEmployeeList(t.getId())).collect(Collectors.toList());
+        return Map.of("tasksAndEmployee",collect);
     }
 
     //添加任务
-    @PostMapping("addTasks")
+    @PostMapping("addTask")
     public Map addTasks(@RequestBody Project project) {
         Project oldProject = projectService.findProjectById(project.getId());
         if (oldProject == null) {
             return Map.of("message", new MessageVO("添加失败，项目不存在"));
         } else {
-            projectService.addTasks(project);
+            if (project.getTasks() == null || project.getTasks().size() <= 0){
+                return Map.of("message",new MessageVO("没有要添加的任务"));
+            }
+            Task task = project.getTasks().get(0);
+            task.setProject(project);
+            projectService.addTask(task);
             return Map.of("message", new MessageVO("添加成功"), "tasks", taskService.getTasks(project.getId()));
         }
     }

@@ -2,6 +2,7 @@ package com.team.tracking_management_system_backend;
 
 
 import com.team.tracking_management_system_backend.interceptor.AdminInterceptor;
+import com.team.tracking_management_system_backend.interceptor.EmployeeInterceptor;
 import com.team.tracking_management_system_backend.interceptor.LoginInterceptor;
 import com.team.tracking_management_system_backend.interceptor.ManagerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private AdminInterceptor adminInterceptor;
     @Autowired
     private ManagerInterceptor managerInterceptor;
+    @Autowired
+    private EmployeeInterceptor employeeInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {//注入拦截器对象
@@ -29,5 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(managerInterceptor)
                 .addPathPatterns("/api/manager/**");
+        registry.addInterceptor(employeeInterceptor)
+                .addPathPatterns("/api/employee/**");
     }
 }

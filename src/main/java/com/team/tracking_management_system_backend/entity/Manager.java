@@ -33,14 +33,13 @@ public class Manager {
             updatable = false)
     @JsonIgnore
     private LocalDateTime insertTime;
-    @Column(columnDefinition = "timestamp default current_timestamp",
+    @Column(columnDefinition = "timestamp default current_timestamp " +
+            "on update current_timestamp",
             insertable = false,
             updatable = false)
     @JsonIgnore
     private LocalDateTime updateTime;
-
     //与项目是一对多关系
-
     @OneToMany(mappedBy = "manager")
     private List<Project> projects;
 

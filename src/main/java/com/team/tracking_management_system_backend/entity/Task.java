@@ -8,7 +8,6 @@ import com.team.tracking_management_system_backend.util.CustomLocalDateTimeDeser
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,6 +24,7 @@ public class Task {
     private int id;
     private String name;
     //权重
+    @Column(columnDefinition = "int default 1")
     private int weight;
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
@@ -33,6 +33,7 @@ public class Task {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDateTime endTime;
     //判断一个子任务是否完成
+    @Column(columnDefinition = "int default 1")
     private int isFinished;
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<TaskEmployee> taskEmployees;
@@ -45,7 +46,8 @@ public class Task {
             updatable = false)
     private LocalDateTime insertTime;
     @JsonIgnore
-    @Column(columnDefinition = "timestamp default current_timestamp",
+    @Column(columnDefinition = "timestamp default current_timestamp " +
+            "on update current_timestamp",
             insertable = false,
             updatable = false)
     private LocalDateTime updateTime;

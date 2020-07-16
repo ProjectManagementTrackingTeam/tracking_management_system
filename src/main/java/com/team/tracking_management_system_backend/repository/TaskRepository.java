@@ -17,5 +17,4 @@ public interface TaskRepository extends BaseRepository<Task,Integer>{
     @Modifying
     @Query("delete from Task t where t.project.id = :projectId")
     void deleteTasksFromProject(int projectId);
-
 }

@@ -9,7 +9,6 @@ import com.team.tracking_management_system_backend.util.CustomLocalDateTimeDeser
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIgnoreProperties(value = {"projectFiles","employees","hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties(value = {"employees","hibernateLazyInitializer","handler"})
 public class Project {
     public Project(Integer id) {
         this.id = id;
@@ -49,7 +48,8 @@ public class Project {
     @ManyToOne
     private Manager manager;
     @OneToMany(mappedBy = "project")
-    private List<ProjectFile> projectFiles;
+    @JsonIgnore
+    private List<MyProjectFile> myProjectFiles;
     //与员工是一对多关系
     @OneToMany(mappedBy = "project")
     private List<Employee> employees;
@@ -61,11 +61,10 @@ public class Project {
             updatable = false)
     @JsonIgnore
     private LocalDateTime insertTime;
-    @Column(columnDefinition = "timestamp default current_timestamp",
+    @Column(columnDefinition = "timestamp default current_timestamp " +
+            "on update current_timestamp",
             insertable = false,
             updatable = false)
     @JsonIgnore
     private LocalDateTime updateTime;
-
-
 }

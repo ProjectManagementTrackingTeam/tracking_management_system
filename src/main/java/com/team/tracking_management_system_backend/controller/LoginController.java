@@ -53,7 +53,8 @@ public class LoginController {
         String auth = encrypt.encryptToken(token);
         response.setHeader(MyToken.AUTHORIZATION, auth);//以键值对形式放入头中
         log.debug("{}", "登陆成功");
-        String roleCode = user.getRole()== User.Role.ADMIN? roleAdmin:roleManager;
+        User.Role role = user.getRole();
+        String roleCode = role== User.Role.ADMIN? roleAdmin:(role == User.Role.MANAGER ? roleManager : roleEmplyee);
 
         return Map.of("role",roleCode);//告诉前端你是什么身份，前端渲染不同界面
     }
