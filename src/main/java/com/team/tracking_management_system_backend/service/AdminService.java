@@ -31,6 +31,9 @@ public class AdminService  {
     @Autowired
     private ManagerRepository managerRepository;
 
+    public Admin getAdmin(int aid){
+        return adminRepository.findById(aid).orElse(null);
+    }
 
     public void addAdmin(Admin admin){
         adminRepository.save(admin);

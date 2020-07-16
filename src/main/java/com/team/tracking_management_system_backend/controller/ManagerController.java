@@ -31,6 +31,14 @@ public class ManagerController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("managerindex")
+    public Map getManager(){
+        log.debug("{}", requestComponent.getUid());
+        Manager manager = managerService.getManager(requestComponent.getUid());
+        return Map.of(
+                "manager",manager
+        );
+    }
     //添加项目同时要为项目添加task
     @PostMapping("addProject")
     public Map addProject(@RequestBody Project project) {
@@ -44,6 +52,7 @@ public class ManagerController {
         projectService.addProject(project);
         return Map.of("message", new MessageVO("创建成功"), "projects", projectService.getProjects(managerId));
     }
+
 
     //查看项目
     @GetMapping("listProjects")
@@ -104,6 +113,7 @@ public class ManagerController {
             return Map.of("project",projectService.findProjectById(project.getId()));
         }
     }
+    //查看某个项目下的任务
     @GetMapping("getTasks/{projectId}")
     public Map getTasks(@PathVariable int projectId){
         List<Task> tasks = taskService.getTasks(projectId);
@@ -148,7 +158,7 @@ public class ManagerController {
     }
 
     //查看经理管理的所有员工
-    @GetMapping("getEmployee")
+    @GetMapping("getEmployees")
     public Map getEmployee() {
         List<Project> projects = projectService.getProjects(requestComponent.getUid());
         if (projects == null) {

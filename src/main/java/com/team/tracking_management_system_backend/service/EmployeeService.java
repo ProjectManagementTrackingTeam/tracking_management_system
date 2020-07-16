@@ -48,6 +48,10 @@ public class EmployeeService {
         return employeeRepository.getOne(id);
 
     }
+    public Employee getEmplyee(int eid){
+        return employeeRepository.findById(eid).orElse(null);
+    }
+
 
 
 }

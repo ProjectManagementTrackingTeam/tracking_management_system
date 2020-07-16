@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"projects"},allowSetters = true)
+@JsonIgnoreProperties(value = {"projects","hibernateLazyInitializer"},allowSetters = true)
 public class Manager {
 
     public Manager(int managerId) {

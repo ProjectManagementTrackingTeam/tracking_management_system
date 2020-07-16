@@ -1,14 +1,12 @@
 package com.team.tracking_management_system_backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team.tracking_management_system_backend.entity.MyProjectFile;
 import com.team.tracking_management_system_backend.entity.Project;
 import com.team.tracking_management_system_backend.service.ProjectFileService;
 import com.team.tracking_management_system_backend.service.ProjectService;
 import com.team.tracking_management_system_backend.vo.MessageVO;
-import org.hibernate.cache.spi.FilterKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -20,14 +18,13 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class FileController {
     @Autowired
     private TextEncryptor textEncryptor;

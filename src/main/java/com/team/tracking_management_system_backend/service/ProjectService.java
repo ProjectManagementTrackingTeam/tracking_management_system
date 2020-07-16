@@ -41,13 +41,15 @@ public class ProjectService {
         List<Task> allTasks = taskRepository.findAll();
         List<Project> projects = projectRepository.getProjects(managerId);
         //为每个project都加上了进度
-        projects.stream().map((e) -> {
+        projects.stream().map(p -> p.getName()).forEach(System.out::print);
+        allTasks.stream().map(t -> t.getProject().getId()).forEach(System.out::print);
+        List<Project> collect = projects.stream().map((e) -> {
             List<Task> tasks = allTasks.stream().
                     filter((t) -> t.getProject().getId() == e.getId()).collect(Collectors.toList());
             setProcess(e, tasks);
             return e;
-        });
-        return projects;
+        }).collect(Collectors.toList());
+        return collect;
     }
 
     public Project findProjectById(int projectId) {
@@ -100,6 +102,6 @@ public class ProjectService {
                 .filter((t) -> t.getIsFinished() == 1)
                 .mapToInt(Task::getWeight).sum();
         int sum = tasks.stream().mapToInt(Task::getWeight).sum();
-        project.setProcess(complete * 1.00 / sum);
+        project.setProcess(complete * 1.00 / sum * 100.00) ;
     }
 }

@@ -46,4 +46,12 @@ public class AdminController {
         adminService.deleteManager(m.getId());
         return Map.of("managers",adminService.getManagers());
     }
+    @GetMapping("adminindex")
+    public Map getAdmin(){
+        log.debug("{}", requestComponent.getUid());
+        Admin a = adminService.getAdmin(requestComponent.getUid());
+        return Map.of(
+                "admin",a
+        );
+    }
 }
