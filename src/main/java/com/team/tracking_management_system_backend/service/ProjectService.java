@@ -2,7 +2,9 @@ package com.team.tracking_management_system_backend.service;
 
 import com.team.tracking_management_system_backend.entity.Project;
 import com.team.tracking_management_system_backend.entity.Task;
+import com.team.tracking_management_system_backend.entity.TaskEmployee;
 import com.team.tracking_management_system_backend.repository.ProjectRepository;
+import com.team.tracking_management_system_backend.repository.TaskEmployeeRepository;
 import com.team.tracking_management_system_backend.repository.TaskRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class ProjectService {
     private ProjectRepository projectRepository;
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private TaskEmployeeRepository taskEmployeeRepository;
 
     public void addProject(Project project) {
         projectRepository.save(project);
@@ -74,8 +78,10 @@ public class ProjectService {
 //        taskRepository.saveAll(project.getTasks().stream()
 //                .map((t)->{t.setProject(new Project(project.getId())); return t;})
 //                .collect(Collectors.toList()));
-
         taskRepository.save(task);
+        TaskEmployee taskEmployee = new TaskEmployee();
+        taskEmployee.setTask(task);
+        taskEmployeeRepository.save(taskEmployee);
 
     }
 

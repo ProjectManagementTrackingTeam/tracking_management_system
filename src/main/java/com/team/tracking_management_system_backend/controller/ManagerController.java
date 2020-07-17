@@ -137,22 +137,23 @@ public class ManagerController {
             Task task = project.getTasks().get(0);
             task.setProject(project);
             projectService.addTask(task);
-            return Map.of("message", new MessageVO("添加成功"), "tasks", taskService.getTasks(project.getId()));
+            return Map.of("tasks", taskService.getTasks(project.getId()));
         }
     }
     //删除任务
     @PostMapping("deleteTasks")
     public Map deleteTasks(@RequestBody Project project) {
         List<Task> tasks = project.getTasks();
+        if (tasks == null || tasks.size() ==0){
+            return Map.of("message", new MessageVO("删除失败，任务不存在"));
+        }
+        taskEmployeeService.deleteByTaskId(tasks.get(0).getId());
         taskService.deleteTasks(tasks.stream().map(Task::getId).collect(Collectors.toList()));
         return Map.of("tasks", taskService.getTasks(project.getId()));
     }
     //修改任务信息
     @PostMapping("updateTasks")
     public Map updateTasks(@RequestBody Task task){
-        System.out.println(task.getId());
-        System.out.println(task.getName());
-        System.out.println(task.getStartTime());
         taskService.updateTask(task);
         return Map.of("task",taskService.getTaskById(task.getId()));
     }

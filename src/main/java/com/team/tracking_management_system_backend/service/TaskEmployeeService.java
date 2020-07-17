@@ -43,13 +43,14 @@ public class TaskEmployeeService {
 
     public void addWorker(List<TaskEmployee> taskEmployees) {
         int taskId = taskEmployees.get(0).getTask().getId();
-        taskEmployeeRepository.deleteTEs(taskId);
         Task one = taskRepository.getOne(taskId);
         taskEmployeeRepository.saveAll(taskEmployees.stream()
                 .map(e -> {
                     e.setTask(one);
                     return e;
                 }).collect(Collectors.toList()));
-
+    }
+    public void deleteByTaskId(int taskId){
+        taskEmployeeRepository.deleteTEs(taskId);
     }
 }

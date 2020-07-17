@@ -92,7 +92,7 @@ Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "id": 19,
+  "id": 1,
   "tasks": [
     {
       "name": "task1",
@@ -126,10 +126,10 @@ Content-Type: application/json
 Authorization: {{token1}}
 
 {
-  "id": 14,
+  "id": 1,
   "tasks": [
     {
-      "id": 5
+      "id": 4
     }
   ]
 }
@@ -175,18 +175,10 @@ Authorization: {{token1}}
 [
   {
     "task": {
-      "id": 8
+      "id": 1
     },
     "employee": {
-      "id": 8
-    }
-  },
-  {
-    "task": {
-      "id": 8
-    },
-    "employee": {
-      "id": 11
+      "id": 3
     }
   }
 ]
@@ -219,5 +211,5 @@ Authorization: {{token1}}
 ]
 ###
 #查看一个项目下的所有任务
-GET http://localhost:8000/api/manager/getTasks/18
+GET http://localhost:8000/api/manager/getTasks/1
 Authorization: {{token1}}
